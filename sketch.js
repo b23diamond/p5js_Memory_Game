@@ -7,24 +7,17 @@ function setup(){
 //Keep shifting between states 2 and 3 after state 1
 
 
+//States within gameScene2: "readyState", "watchState", "inputState"
+//Maybe make it a function that cycles through 3 smaller functions
 
 
-function gameScene2(){
-    background(0,0,0);
-    noStroke();
-    fill(22,99,0);
-    rect(50,50,50,50);
-    fill(110,0,0)
-    rect(300,50,50,50);
-    fill(100,102,0)
-    rect(50,300,50,50);
-    fill(0,23,82);
-    rect(300,300,50,50);
-}
+let currentScene="homeScene";
+
+
+
+
 
 function homeScreen(){
-    
-    
     
     gameScene2();
 
@@ -43,22 +36,91 @@ function homeScreen(){
 
     rect(150,150,100,100);
     textSize(9);
-    fill(0,0,0); //Text color, needs to vary
+
+    if(mouseX >= 150 && mouseX <= 250 && mouseY >= 150 && mouseY <= 250){
+        fill(255,255,255);
+    }
+    else{
+        fill(0,0,0)
+    }
+    
     text("Click this blue button \n to start game",160,200)
 
         //for home button: 
             //Light color: fill(0,225,255);
             //Dark color:  fill(0,72,82);
     
+}
+
+
+
+//global variables for these subfunctions to be cycled through
+let readyStateCounter=0;
+
+
+function readyState(){
+    readyStateCounter+=0.005;
+
+}
+
+function showState(){
+
+
+}
+
+
+function inputState(){
+
+
+
+}
+
+function feedbackState(){
+
+
 
 }
 
 
 
+function gameScene2(){
+    background(0,0,0);
+    noStroke();
+    fill(22,99,0);
+    rect(50,50,50,50);
+    fill(110,0,0)
+    rect(300,50,50,50);
+    fill(100,102,0)
+    rect(50,300,50,50);
+    fill(0,23,82);
+    rect(300,300,50,50);
+}
+
+
+
+
+function mouseClicked(){
+    if(mouseX >= 150 && mouseX <= 250 && mouseY >= 150 && mouseY <= 250 && currentScene==="homeScene"){
+        currentScene="gameScene";
+    }
+}
 
 function draw(){
-homeScreen();
 
+if(currentScene==="homeScene"){    
+    homeScreen();
+}
+
+if(currentScene==="gameScene"){
+    gameScene2();
+}
+
+
+
+
+
+fill(255,255,255);
+text("currentScene: "+currentScene,200,350)
   
 //Light colors
     //Red fill(255,0,0);
