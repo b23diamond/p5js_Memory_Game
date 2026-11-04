@@ -53,56 +53,78 @@ function homeScreen(){
 }
 
 
+//Don't use "subfunctions". Instead, use "substates. 
 
-//global variables for these subfunctions to be cycled through
-let readyStateCounter=0;
-
-
-function readyState(){
-    readyStateCounter+=0.005;
-
-}
-
-function showState(){
-
-
-}
-
-
-function inputState(){
+//ready, watch, input, output
 
 
 
-}
 
-function feedbackState(){
-
-
-
-}
-
-
+let currentState="ready";
+let readyCounter=0;
+let simulatedWatchCounter=0;
+let inputState="null";
 
 function gameScene2(){
     background(0,0,0);
     noStroke();
-    fill(22,99,0);
-    rect(50,50,50,50);
-    fill(110,0,0)
-    rect(300,50,50,50);
-    fill(100,102,0)
-    rect(50,300,50,50);
-    fill(0,23,82);
-    rect(300,300,50,50);
+    fill(22,99,0); //Green
+    rect(50,50,50,50); //Green
+    fill(110,0,0) //Red 
+    rect(300,50,50,50); //Red
+    fill(100,102,0) //Yellow
+    rect(50,300,50,50);//Yellow
+    fill(0,23,82); //Blue
+    rect(300,300,50,50);//Blue
+
+    if(currentScene==="gameScene"){
+        readyCounter+=1;
+        if(readyCounter>100){
+            simulatedWatchCounter+=1;
+            currentState="watch";
+        }
+        if(simulatedWatchCounter>200){
+            currentState="input";
+            fill(255,0,0);
+            text("click somewhere",200,200);
+        }
+    }
+    
+
+
+    fill(255,255,255);
+    text("readyCounter: "+readyCounter,200,300);
+    text("currentState: "+currentState,200,250);
+    text("simulatedWatchCounter: "+simulatedWatchCounter,200,310);
+    text("inputState: "+inputState,200,320);
+
 }
 
-
+//These are all states based on where it is. 
 
 
 function mouseClicked(){
     if(mouseX >= 150 && mouseX <= 250 && mouseY >= 150 && mouseY <= 250 && currentScene==="homeScene"){
         currentScene="gameScene";
     }
+
+    if(mouseX>=50 && mouseX<100 && mouseY>50 && mouseY<100 && currentState==="input"){
+        inputState="green";
+    }
+
+    else if(mouseX>=300 && mouseX<=350 && mouseY>=50 && mouseY<=100 && currentState==="input"){
+        inputState="red";
+    }
+
+    else if(mouseX>=50 && mouseX<=100 && mouseY>=300 && mouseY<=350 && currentState==="input"){
+        inputState="yellow";
+    }
+
+    else if(mouseX>=300 && mouseX<=350 && mouseY>=300 && mouseY<=350 && currentState==="input"){
+        inputState="blue";
+    }
+
+    //rect(300,300,50,50);//Blue
 }
 
 function draw(){
